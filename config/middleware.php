@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Middleware\ValidationMiddleware;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\App;

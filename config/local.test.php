@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Phpunit test environment
 
 return function (array $settings): array {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Dev environment
 
 return function (array $settings): array {
