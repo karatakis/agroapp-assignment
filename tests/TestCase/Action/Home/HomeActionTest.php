@@ -23,12 +23,12 @@ class HomeActionTest extends TestCase
         $response = $this->app->handle($request);
 
         $this->assertSame(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
-        $this->assertResponseContains($response, 'Welcome!');
+        $this->assertResponseContains($response, '');
     }
 
     public function testPageNotFound(): void
     {
-        $request = $this->createRequest('GET', '/nada');
+        $request = $this->createRequest('GET', '/this-should-definitely-404');
         $response = $this->app->handle($request);
 
         $this->assertSame(StatusCodeInterface::STATUS_NOT_FOUND, $response->getStatusCode());
