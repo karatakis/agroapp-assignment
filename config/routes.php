@@ -13,11 +13,17 @@ use App\Action\Shop\ListShopsAction;
 use App\Action\Shop\RemoveShopAction;
 use App\Action\Shop\ShopDetailsAction;
 use App\Action\Shop\UpdateShopAction;
+use Nyholm\Psr7\Request;
+use Nyholm\Psr7\Response;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
+    $app->options('/{routes:.+}', function ($request, $response, $args) {
+        return $response;
+    });
+
     $app->get('/', \App\Action\Home\HomeAction::class)->setName('home');
 
     // API

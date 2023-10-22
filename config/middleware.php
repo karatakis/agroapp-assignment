@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Middleware\AppExceptionMiddleware;
+use App\Middleware\LazyCorsMiddleware;
 use App\Middleware\TokenMiddleware;
 use App\Middleware\ValidationMiddleware;
 use Selective\BasePath\BasePathMiddleware;
@@ -17,4 +18,6 @@ return function (App $app) {
     $app->addRoutingMiddleware();
     $app->add(BasePathMiddleware::class);
     $app->add(ErrorMiddleware::class);
+    // TODO: remove this in production
+    $app->add(LazyCorsMiddleware::class);
 };

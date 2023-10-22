@@ -83,28 +83,24 @@ paths:
           name: city
           schema:
             type: string
-            example: Thessaloniki
         - in: query
           required: false
           name: category
           schema:
             type: string
             format: uuid
-            example: a50f5860-957f-400a-9a15-4067ec08cf1b
         - in: query
           required: false
           name: owner
           schema:
             type: string
             format: uuid
-            example: a50f5860-957f-400a-9a15-4067ec08cf1b
         - in: query
           description: requires authentication to work
           required: false
           name: my_shops
           schema:
             type: boolean
-            example: true
       responses:
         '200':
           description: OK
