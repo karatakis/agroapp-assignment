@@ -4,6 +4,9 @@ CREATE TABLE `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `categories` (`id`, `name`) VALUES
+('22e5f98c-48cb-4e5e-b14f-9a751408e9de',	'Toys'),
+('67d7a36a-eefb-483a-889b-ef88a7cecf2a',	'Books');
 
 CREATE TABLE `emails_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
