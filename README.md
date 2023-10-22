@@ -44,7 +44,7 @@ importing `resources/hoppscotch.json`
 
 ## open-api UI
 
-1. run server ``
-2. `npm i -g open-swagger-ui`
+1. run server `php -S localhost:8080 -t public`
+2. in another terminal `npm i -g open-swagger-ui`
 3. cd `resources/api`
 4. `open-swagger-ui ./api.yaml --open`
