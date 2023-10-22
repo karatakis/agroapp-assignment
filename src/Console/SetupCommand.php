@@ -9,6 +9,7 @@ use PDO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Uid\Uuid;
 use UnexpectedValueException;
 
 final class SetupCommand extends Command
@@ -85,6 +86,8 @@ final class SetupCommand extends Command
 
     private function safeEnvFile(): void
     {
+        $uuid = Uuid::v4();
+
         $code = [
             '<?php',
             '',
@@ -96,6 +99,13 @@ final class SetupCommand extends Command
             "    \$settings['db']['port'] = '$this->dbPort';",
             "    \$settings['db']['username'] = '$this->dbUsername';",
             "    \$settings['db']['password'] = '$this->dbPassword';",
+            '',
+            '',
+            "    \$settings['mail']['from'] = 'CHANGEME';",
+            "    \$settings['mail']['from_name'] = 'CHANGEME';",
+            "    \$settings['mail']['user'] = 'CHANGEME';",
+            "    \$settings['mail']['pass'] = 'CHANGEME';",
+            "    \$settings['mail']['debug'] = false;",
             '',
             "    if (defined('PHPUNIT_COMPOSER_INSTALL')) {",
             '        // PHPUnit test database',
