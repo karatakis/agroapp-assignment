@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Middleware\TokenMiddleware;
 use App\Middleware\ValidationMiddleware;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
 
 return function (App $app) {
+    $app->add(TokenMiddleware::class);
     $app->addBodyParsingMiddleware();
     $app->add(ValidationMiddleware::class);
     $app->addRoutingMiddleware();

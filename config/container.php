@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Ahc\Jwt\JWT;
+use App\Factory\EmailFactory;
 use App\Factory\LoggerFactory;
 use App\Handler\DefaultErrorHandler;
 use Cake\Database\Connection;
@@ -63,6 +67,20 @@ return [
     // The logger factory
     LoggerFactory::class => function (ContainerInterface $container) {
         return new LoggerFactory($container->get('settings')['logger']);
+    },
+
+    EmailFactory::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings')['mail'];
+        $logger = $container
+            ->get(LoggerFactory::class)
+            ->addFileHandler('mail.log')
+            ->createLogger();
+        return new EmailFactory($settings, $logger);
+    },
+
+    Jwt::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings')['jwt'];
+        return new JWT($settings['secret'], 'HS256', 600, 10);
     },
 
     BasePathMiddleware::class => function (ContainerInterface $container) {

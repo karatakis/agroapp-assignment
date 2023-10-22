@@ -14,6 +14,7 @@
         "php": "^8.1",
         "ext-json": "*",
         "ext-pdo": "*",
+        "adhocore/jwt": "^1.1",
         "cakephp/chronos": "^3",
         "cakephp/database": "^5",
         "cakephp/validation": "^5",
@@ -22,6 +23,7 @@
         "nyholm/psr7": "^1.4",
         "nyholm/psr7-server": "^1.0",
         "php-di/php-di": "^7",
+        "phpmailer/phpmailer": "^6.8",
         "selective/basepath": "^2",
         "slim/slim": "^4",
         "symfony/uid": "^6"
