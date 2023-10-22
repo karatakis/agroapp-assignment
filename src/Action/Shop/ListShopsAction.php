@@ -6,7 +6,6 @@ namespace App\Action\Shop;
 
 use App\Action\DatabaseAction;
 use Cake\Validation\Validator;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ListShopsAction extends DatabaseAction

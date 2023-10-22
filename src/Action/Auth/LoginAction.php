@@ -6,7 +6,6 @@ namespace App\Action\Auth;
 
 use Ahc\Jwt\JWT;
 use App\Action\DatabaseAction;
-use App\Application\Exceptions\UnauthenticatedException;
 use App\Factory\QueryFactory;
 use App\Support\Exceptions\UnauthorizedException;
 use Cake\Validation\Validator;
