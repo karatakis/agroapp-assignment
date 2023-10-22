@@ -2,22 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Validation;
+namespace App\Support\Exceptions;
 
-use DomainException;
 use Throwable;
 
-final class ValidationException extends DomainException
+final class ValidationException extends AppException
 {
     private array $errors;
 
     public function __construct(
-        string $message,
+        string $message = 'VALIDATION_ERROR',
         array $errors = [],
-        int $code = 422,
         Throwable $previous = null
     ) {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, 422, $previous);
         $this->errors = $errors;
     }
 
