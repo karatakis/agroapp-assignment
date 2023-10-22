@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // Define app routes
 
+use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
@@ -18,7 +19,7 @@ return function (App $app) {
         function (RouteCollectorProxy $app) {
             $app->group('/auth', function (Group $authGroup) {
                 $authGroup->post('/register', RegisterAction::class);
-                // $authGroup->post('/login', LoginAction::class);
+                $authGroup->post('/login', LoginAction::class);
             });
 
             $app->group('/shops', function (Group $shopGroup) {
