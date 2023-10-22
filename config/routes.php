@@ -7,6 +7,7 @@ declare(strict_types=1);
 use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\Category\ListCategoriesAction;
+use App\Action\Offer\CreateOfferAction;
 use App\Action\Shop\CreateShopAction;
 use App\Action\Shop\ListShopsAction;
 use App\Action\Shop\RemoveShopAction;
@@ -38,7 +39,7 @@ return function (App $app) {
             });
 
             $app->group('/offers', function (Group $offerGroup) {
-                // $offerGroup->post('', CreateOfferAction::class);
+                $offerGroup->post('', CreateOfferAction::class);
             });
 
             $app->group('/categories', function (Group $categoryGroup) {
