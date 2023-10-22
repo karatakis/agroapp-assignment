@@ -76,7 +76,7 @@ $settings['mail'] = [
 
 // Console commands
 $settings['commands'] = [
-    \App\Console\ExampleCommand::class,
+    \App\Console\SendEmailsCommand::class,
     \App\Console\SetupCommand::class,
 ];
 
