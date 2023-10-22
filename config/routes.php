@@ -9,6 +9,7 @@ use App\Action\Auth\RegisterAction;
 use App\Action\Category\ListCategoriesAction;
 use App\Action\Shop\CreateShopAction;
 use App\Action\Shop\ListShopsAction;
+use App\Action\Shop\ShopDetailsAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
@@ -29,7 +30,7 @@ return function (App $app) {
                 $shopGroup->get('', ListShopsAction::class);
                 $shopGroup->post('', CreateShopAction::class);
 
-                // $shopGroup->get('/{id}', ShopDetailsAction::class);
+                $shopGroup->get('/{id}', ShopDetailsAction::class);
                 // $shopGroup->post('/{id}', UpdateShopAction::class);
                 // $shopGroup->delete('/{id}', RemoveShopAction::class);
             });

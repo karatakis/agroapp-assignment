@@ -33,7 +33,7 @@ final class AppExceptionMiddleware implements MiddlewareInterface
             $response->getBody()->write($json);
 
             return $response
-                ->withStatus(422)
+                ->withStatus($exception->getCode())
                 ->withHeader('Content-Type', 'application/json');
         }
     }
