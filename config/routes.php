@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
+use App\Action\Category\ListCategoriesAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
@@ -36,7 +37,7 @@ return function (App $app) {
             });
 
             $app->group('/categories', function (Group $categoryGroup) {
-                // $categoryGroup->get('', ListCategoriesAction::class);
+                $categoryGroup->get('', ListCategoriesAction::class);
             });
         }
     );
