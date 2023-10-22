@@ -9,6 +9,7 @@ use App\Action\Auth\RegisterAction;
 use App\Action\Category\ListCategoriesAction;
 use App\Action\Shop\CreateShopAction;
 use App\Action\Shop\ListShopsAction;
+use App\Action\Shop\RemoveShopAction;
 use App\Action\Shop\ShopDetailsAction;
 use App\Action\Shop\UpdateShopAction;
 use Slim\App;
@@ -33,7 +34,7 @@ return function (App $app) {
 
                 $shopGroup->get('/{id}', ShopDetailsAction::class);
                 $shopGroup->post('/{id}', UpdateShopAction::class);
-                // $shopGroup->delete('/{id}', RemoveShopAction::class);
+                $shopGroup->delete('/{id}', RemoveShopAction::class);
             });
 
             $app->group('/offers', function (Group $offerGroup) {
