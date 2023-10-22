@@ -20,11 +20,11 @@ final class QueryFactory
     }
 
     /**
-     * @param string $table
+     * @param array|string $table
      *
      * @return SelectQuery<mixed>
      */
-    public function newSelect(string $table): SelectQuery
+    public function newSelect(array|string $table): SelectQuery
     {
         return $this->connection->selectQuery([], $table);
     }

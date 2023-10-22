@@ -7,6 +7,7 @@ declare(strict_types=1);
 use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\Category\ListCategoriesAction;
+use App\Action\Shop\CreateShopAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
@@ -25,7 +26,7 @@ return function (App $app) {
 
             $app->group('/shops', function (Group $shopGroup) {
                 // $shopGroup->get('', ListShopsAction::class);
-                // $shopGroup->post('', CreateShopAction::class);
+                $shopGroup->post('', CreateShopAction::class);
 
                 // $shopGroup->get('/{id}', ShopDetailsAction::class);
                 // $shopGroup->post('/{id}', UpdateShopAction::class);

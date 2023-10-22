@@ -32,9 +32,7 @@ class RegisterAction extends DatabaseAction
 
         $body = $this->getValidatedBody($validator);
 
-        /**
-         * Check if owner already exists
-         */
+        // check if user exists
         $owner = $this
             ->queryFactory
             ->newSelect('owners')
@@ -47,10 +45,7 @@ class RegisterAction extends DatabaseAction
             throw new ForbiddenException('Owner already exists');
         }
 
-        /**
-         * Create new owner
-         */
-
+        // create new user
         $id = Uuid::v4();
         $name = $body['name'];
         $email = $body['email'];
