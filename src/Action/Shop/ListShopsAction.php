@@ -25,20 +25,22 @@ class ListShopsAction extends DatabaseAction
         $params = $this->getValidatedQuery($validator);
 
         $query = $this
-            ->queryFactory
-            ->newSelect(['s' => 'shops'])
-            ->select([
-                'id'=> 's.id',
-                'name'=> 's.name',
-                'description'=> 's.description',
-                'open_hours'=> 's.open_hours',
-                'city'=> 's.city',
-                'address'=> 's.address',
-                'owner_id'=> 's.owner_id',
-                'owner_name'=> 'o.name',
-                'category_id'=> 's.category_id',
-                'category_name'=> 'c.name',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id'=> 's.id',
+                    'name'=> 's.name',
+                    'description'=> 's.description',
+                    'open_hours'=> 's.open_hours',
+                    'city'=> 's.city',
+                    'address'=> 's.address',
+                    'owner_id'=> 's.owner_id',
+                    'owner_name'=> 'o.name',
+                    'category_id'=> 's.category_id',
+                    'category_name'=> 'c.name',
+                ],
+                ['s' => 'shops']
+            )
             ->leftJoin(['o' => 'owners'], 's.owner_id = o.id')
             ->leftJoin(['c' => 'categories'], 's.category_id = c.id');
 

@@ -24,20 +24,22 @@ class ShopDetailsAction extends DatabaseAction
         $args = $this->getValidatedArgs($validator);
 
         $shop = $this
-            ->queryFactory
-            ->newSelect(['s' => 'shops'])
-            ->select([
-                'id'=> 's.id',
-                'name'=> 's.name',
-                'description'=> 's.description',
-                'open_hours'=> 's.open_hours',
-                'city'=> 's.city',
-                'address'=> 's.address',
-                'owner_id'=> 's.owner_id',
-                'owner_name'=> 'o.name',
-                'category_id'=> 's.category_id',
-                'category_name'=> 'c.name',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id'=> 's.id',
+                    'name'=> 's.name',
+                    'description'=> 's.description',
+                    'open_hours'=> 's.open_hours',
+                    'city'=> 's.city',
+                    'address'=> 's.address',
+                    'owner_id'=> 's.owner_id',
+                    'owner_name'=> 'o.name',
+                    'category_id'=> 's.category_id',
+                    'category_name'=> 'c.name',
+                ],
+                ['s' => 'shops']
+            )
             ->leftJoin(['o' => 'owners'], 's.owner_id = o.id')
             ->leftJoin(['c' => 'categories'], 's.category_id = c.id')
             ->where([
@@ -51,13 +53,15 @@ class ShopDetailsAction extends DatabaseAction
         }
 
         $shop['offers'] = $this
-            ->queryFactory
-            ->newSelect('offers')
-            ->select([
-                'id',
-                'name',
-                'description',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id',
+                    'name',
+                    'description',
+                ],
+                'offers'
+            )
             ->where([
                 'shop_id = ' => $shop['id'],
             ])

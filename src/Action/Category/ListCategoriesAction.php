@@ -15,12 +15,14 @@ class ListCategoriesAction extends DatabaseAction
     protected function action(): Response
     {
         $categories = $this
-            ->queryFactory
-            ->newSelect('categories')
-            ->select([
-                'id',
-                'name',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id',
+                    'name',
+                ],
+                'categories'
+            )
             ->execute()
             ->fetchAll('assoc') ?: [];
 

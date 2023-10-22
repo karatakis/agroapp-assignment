@@ -6,8 +6,8 @@ namespace App\Action\Auth;
 
 use Ahc\Jwt\JWT;
 use App\Action\DatabaseAction;
-use App\Factory\QueryFactory;
 use App\Support\Exceptions\UnauthorizedException;
+use Cake\Database\Connection;
 use Cake\Validation\Validator;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -15,8 +15,8 @@ class LoginAction extends DatabaseAction
 {
     private JWT $jwt;
 
-    function __construct(QueryFactory $queryFactory, JWT $jwt) {
-        parent::__construct($queryFactory);
+    function __construct(Connection $connection, JWT $jwt) {
+        parent::__construct($connection);
         $this->jwt = $jwt;
     }
 
@@ -38,14 +38,16 @@ class LoginAction extends DatabaseAction
 
         // check if user exists
         $owner = $this
-            ->queryFactory
-            ->newSelect('owners')
-            ->select([
-                'id',
-                'name',
-                'email',
-                'password',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id',
+                    'name',
+                    'email',
+                    'password',
+                ],
+                'owners'
+            )
             ->where(['email = ' => $body['email']])
             ->execute()
             ->fetch('assoc');

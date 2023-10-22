@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Action;
 
-use App\Factory\QueryFactory;
+use Cake\Database\Connection;
 
 abstract class DatabaseAction extends BaseAction
 {
-    protected QueryFactory $queryFactory;
+    protected Connection $connection;
 
-    public function __construct(QueryFactory $queryFactory) {
-        $this->queryFactory = $queryFactory;
+    public function __construct(Connection $connection) {
+        $this->connection = $connection;
     }
 }

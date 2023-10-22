@@ -34,9 +34,13 @@ class RegisterAction extends DatabaseAction
 
         // check if user exists
         $owner = $this
-            ->queryFactory
-            ->newSelect('owners')
-            ->select(['id'])
+            ->connection
+            ->selectQuery(
+                [
+                    'id',
+                ],
+                'owners'
+            )
             ->where(['email = ' => $body['email']])
             ->execute()
             ->fetch('assoc');
@@ -53,13 +57,16 @@ class RegisterAction extends DatabaseAction
 
         // https://book.cakephp.org/4/en/orm/query-builder.html
         $this
-            ->queryFactory
-            ->newInsert('owners', [
-                'id' => $id,
-                'name' => $name,
-                'email' => $email,
-                'password' => $password,
-            ])
+            ->connection
+            ->insertQuery(
+                'owners',
+                [
+                    'id' => $id,
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                ]
+            )
             ->execute();
 
         return $this->json([

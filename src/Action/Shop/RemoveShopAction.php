@@ -27,20 +27,22 @@ class RemoveShopAction extends DatabaseAction
         $args = $this->getValidatedArgs($validator);
 
         $shop = $this
-            ->queryFactory
-            ->newSelect(['s' => 'shops'])
-            ->select([
-                'id'=> 's.id',
-                'name'=> 's.name',
-                'description'=> 's.description',
-                'open_hours'=> 's.open_hours',
-                'city'=> 's.city',
-                'address'=> 's.address',
-                'owner_id'=> 's.owner_id',
-                'owner_name'=> 'o.name',
-                'category_id'=> 's.category_id',
-                'category_name'=> 'c.name',
-            ])
+            ->connection
+            ->selectQuery(
+                [
+                    'id'=> 's.id',
+                    'name'=> 's.name',
+                    'description'=> 's.description',
+                    'open_hours'=> 's.open_hours',
+                    'city'=> 's.city',
+                    'address'=> 's.address',
+                    'owner_id'=> 's.owner_id',
+                    'owner_name'=> 'o.name',
+                    'category_id'=> 's.category_id',
+                    'category_name'=> 'c.name',
+                ],
+                ['s' => 'shops']
+            )
             ->leftJoin(['o' => 'owners'], 's.owner_id = o.id')
             ->leftJoin(['c' => 'categories'], 's.category_id = c.id')
             ->where([
@@ -58,8 +60,8 @@ class RemoveShopAction extends DatabaseAction
         }
 
         $this
-            ->queryFactory
-            ->newDelete('shops')
+            ->connection
+            ->deleteQuery('shops')
             ->where([
                 'id =' => $args['id'],
                 'owner_id =' => $token['owner_id'],
