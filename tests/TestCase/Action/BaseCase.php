@@ -19,7 +19,7 @@ abstract class BaseCase extends TestCase
             '/api/v1/auth/register',
             [
                 'email'=> 'user1@example.com',
-                'password'=> '1234agroapps',
+                'password'=> '1234pkdemo1',
                 'name'=> 'User One',
             ]
         );

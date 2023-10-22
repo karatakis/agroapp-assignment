@@ -25,7 +25,7 @@ class LoginActionTest extends BaseCase
             '/api/v1/auth/login',
             [
                 'email'=> 'user1@example.com',
-                'password'=> '1234agroapps'
+                'password'=> '1234pkdemo1'
             ]
         );
 
@@ -48,7 +48,7 @@ class LoginActionTest extends BaseCase
             '/api/v1/auth/login',
             [
                 'email'=> 'user1@example.com',
-                'password'=> '1234agroapps'
+                'password'=> '1234pkdemo1'
             ]
         );
 

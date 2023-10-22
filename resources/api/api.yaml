@@ -1,0 +1,338 @@
+openapi: '3.0.2'
+info:
+  title: Demo Assignment
+  version: '1.0'
+servers:
+  - url: http://127.0.0.1:8080/api/v1
+paths:
+  /auth/register:
+    post:
+      description: Register owner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+                - name
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user1@example.com
+                password:
+                  type: string
+                  minLength: 8
+                  example: 1234pkapps
+                name:
+                  type: string
+                  example: User One
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'OWNER_CREATED'
+  /auth/login:
+    post:
+      description: Login as owner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user1@example.com
+                password:
+                  type: string
+                  minLength: 8
+                  example: 1234pkapps
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: JWT
+                    example: '[...]'
+  /shops:
+    get:
+      description: Get a list of all shops
+      parameters:
+        - in: query
+          required: false
+          name: city
+          schema:
+            type: string
+            example: Thessaloniki
+        - in: query
+          required: false
+          name: category
+          schema:
+            type: string
+            format: uuid
+            example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        - in: query
+          required: false
+          name: owner
+          schema:
+            type: string
+            format: uuid
+            example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        - in: query
+          description: requires authentication to work
+          required: false
+          name: my_shops
+          schema:
+            type: boolean
+            example: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BasicShop'
+    post:
+      description: Create Shop
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - category_id
+                - name
+                - description
+                - open_hours
+                - city
+              properties:
+                category_id:
+                  type: string
+                  format: uuid
+                  example: a50f5860-957f-400a-9a15-4067ec08cf1b
+                name:
+                  type: string
+                  example: 'Example Shop'
+                description:
+                  type: string
+                  example: '[...]'
+                open_hours:
+                  type: string
+                  example: '[...]'
+                city:
+                  type: string
+                  example: '[...]'
+                address:
+                  type: string
+                  example: '[...]'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/BasicShop"
+  /shops/{id}:
+    get:
+      description: Get shop details
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: a50f5860-957f-400a-9a15-4067ec08cf1b
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComplexShop'
+    post:
+      description: Update Shop
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+                  format: uuid
+                  example: a50f5860-957f-400a-9a15-4067ec08cf1b
+                name:
+                  type: string
+                  example: 'Example Shop'
+                description:
+                  type: string
+                  example: '[...]'
+                open_hours:
+                  type: string
+                  example: '[...]'
+                city:
+                  type: string
+                  example: '[...]'
+                address:
+                  type: string
+                  example: '[...]'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/BasicShop"
+  /offers:
+    post:
+      description: Create Offer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                shop_id:
+                  type: string
+                  format: uuid
+                  example: a50f5860-957f-400a-9a15-4067ec08cf1b
+                name:
+                  type: string
+                  example: 'Example Offer'
+                description:
+                  type: string
+                  example: '[...]'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Offer"
+  /categories:
+    get:
+      description: Get a list of all categories
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: JWT authentication
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        name:
+          type: string
+          example: Toys
+    BasicShop:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        name:
+          type: string
+          example: Store Name
+        description:
+          type: string
+          example: '[...]'
+        open_hours:
+          type: string
+          example: '[...]'
+        city:
+          type: string
+          example: '[...]'
+        address:
+          type: string
+          example: '[...]'
+        owner_id:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        owner_name:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        category_id:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        category_name:
+          type: string
+          example: Toys
+    Offer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a50f5860-957f-400a-9a15-4067ec08cf1b
+        name:
+          type: string
+          example: Offer Name
+        description:
+          type: string
+          example: '[...]'
+    ComplexShop:
+      allOf:
+        - $ref: '#/components/schemas/BasicShop'
+        - type: object
+          properties:
+            offers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Offer'
