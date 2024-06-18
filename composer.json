@@ -26,7 +26,7 @@
         "phpmailer/phpmailer": "^6.8",
         "selective/basepath": "^2",
         "slim/slim": "^4",
-        "symfony/uid": "^6"
+        "symfony/uid": "^7"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3",
